@@ -1,0 +1,1 @@
+{"dependencies":[["kwalify",["= 0.7.2"]],["vagrant-cachier",["= 1.2.1"]],["vagrant-git",["= 0.1.7"]],["vagrant-proxyconf",["= 2.0.10"]]],"checksum":"77950a40be1472229a3da1507b7ecfd9b5db793572e0ff8f981cdc7abf17174a","vagrant_version":"2.4.3"}
