@@ -1,1 +1,0 @@
-{"virtualbox":{"/opt/scripts":{"guestpath":"/opt/scripts","hostpath":"C:/Users/tbindewald/Desktop/Projects/devops_course/myvms/scripts","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/tbindewald/Desktop/Projects/devops_course/myvms","disabled":false,"__vagrantfile":true}}}
