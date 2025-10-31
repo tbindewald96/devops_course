@@ -1,3 +1,7 @@
+def COLOR_MAP = [
+    'SUCCESS': 'good',
+    'FAILURE': 'danger',
+]
 pipeline {
     agent any
     tools {
@@ -5,6 +9,11 @@ pipeline {
         jdk "JDK17"
     }
     stages {
+        // stage('test slack'){
+        //     steps{
+        //         sh 'NotARealCommand'
+        //     }
+        // }
         stage('Fecth code') {
             steps {
                 git branch: 'atom', url: 'https://github.com/tbindewald96/vprofile-project.git'
@@ -62,18 +71,27 @@ pipeline {
                     protocol: 'http',
                     nexusUrl: '172.31.27.137:8081',
                     groupId: 'QA',
-                    version: '${env.BUILD_ID}-${env.BUILD_TIMESTAMP}',
-                    repository: 'vprofile-repo',
+                    version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+                    repository: 'vprofile',
                     credentialsId: 'nexuslogin',
                     artifacts: [
                         [artifactId: 'vproapp',
-                         classifier: '',
-                         file: 'target/vprofile-v2.war', 
-                         type: 'war'
+                            classifier: '',
+                            file: 'target/vprofile-v2.war', 
+                            type: 'war'
                         ]
                     ]
                 )
             }
         }
+    }
+    post {
+        always {
+            echo 'Slack Notificatinons.'
+            slackSend channel: '#devopscicd',
+                color: COLOR_MAP[currentBuild.currentResult],
+                message: "*${currentBuild.currentResult}*: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (<${env.BUILD_URL}|Open>)"
+        }
+
     }
 }
